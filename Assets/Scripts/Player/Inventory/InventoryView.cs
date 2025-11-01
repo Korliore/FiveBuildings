@@ -5,11 +5,11 @@ public class InventoryView : MonoBehaviour
 {
     [SerializeField] private ResourceUIElement[] _resourceUIElements = new ResourceUIElement[5];
 
-    public void UpdateUIElement(string resourceName, string value)
+    public void UpdateUIElement(ResourceType resourceType, string value)
     {
         for (int i = 0; i < _resourceUIElements.Length; i++)
         {
-            if (_resourceUIElements[i].Name == resourceName)
+            if (_resourceUIElements[i].ResourceType == resourceType)
             {
                 _resourceUIElements[i].Text.text = value;
                 break;
@@ -20,7 +20,7 @@ public class InventoryView : MonoBehaviour
     [System.Serializable]
     private struct ResourceUIElement
     {
-        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public ResourceType ResourceType { get; private set; }
         [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
     }
 }
