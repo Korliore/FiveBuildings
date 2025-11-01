@@ -87,7 +87,7 @@ public class AudioController : MonoBehaviour
 
     private void InitializeFromMixer()
     {
-        MasterVolume = 1f;
+        MasterVolume = 0.5f;
         MusicVolume = 1f;
         SFXVolume = 1f;
 

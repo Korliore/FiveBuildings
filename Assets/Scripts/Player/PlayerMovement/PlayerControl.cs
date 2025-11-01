@@ -2,15 +2,22 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent), typeof(AudioSource))]
 public class PlayerControl : MonoBehaviour
 {
+    [Header("Cache")]
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private LayerMask _buildingMask;
     [SerializeField] private MovePoint _moveArrow;
 
-    private Camera _camera;
+    [Header("Audio")]
+    [SerializeField] private AudioClip _collectResourcesSound;
+
     private Animator _animator;
     private NavMeshAgent _agent;
+    private AudioSource _audioSource;
+
+    private Camera _camera;
     private Coroutine _moveCor;
 
     private bool _isCollecting = false;
@@ -19,9 +26,11 @@ public class PlayerControl : MonoBehaviour
 
     private void Awake()
     {
-        _camera = Camera.main;
-        _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
+        _agent = GetComponent<NavMeshAgent>();
+        _audioSource = GetComponent<AudioSource>();
+
+        _camera = Camera.main;
     }
 
     private void Update()
@@ -117,6 +126,7 @@ public class PlayerControl : MonoBehaviour
 
             StartCoroutine(RotateToBuildingSmooth(building));
 
+            _audioSource.PlayOneShot(_collectResourcesSound);
             _animator.SetTrigger("Take");
 
             float takeAnimLength = _animator.GetCurrentAnimatorStateInfo(0).length;
