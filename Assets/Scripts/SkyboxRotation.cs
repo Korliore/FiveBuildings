@@ -1,34 +1,28 @@
 using UnityEngine;
 
-public class SkyboxParallax : MonoBehaviour
+public class SkyboxRotation : MonoBehaviour
 {
-    [SerializeField] private float _parallaxFactor = 0.01f;
+    [SerializeField] private float _rotationSpeed = 1f;
 
     private Material _skyboxMaterial;
-    private Vector3 _lastCamPos;
 
     private void Start()
     {
         _skyboxMaterial = RenderSettings.skybox;
-        _lastCamPos = transform.position;
     }
 
     private void Update()
     {
-        ApplyParallax();
+        RotateSkybox();
     }
 
-    private void ApplyParallax()
+    private void RotateSkybox()
     {
-        Vector3 delta = transform.position - _lastCamPos;
-
         if (_skyboxMaterial.HasProperty("_Rotation"))
         {
             float rotation = _skyboxMaterial.GetFloat("_Rotation");
-            rotation += delta.x * _parallaxFactor;
+            rotation += _rotationSpeed * Time.deltaTime;
             _skyboxMaterial.SetFloat("_Rotation", rotation);
         }
-
-        _lastCamPos = transform.position;
     }
 }

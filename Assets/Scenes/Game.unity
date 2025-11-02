@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bef7b72672148e4c8efc9a588eeb26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parallaxFactor: 0.2
+  _rotationSpeed: 3
 --- !u!114 &430714019
 MonoBehaviour:
   m_ObjectHideFlags: 0
